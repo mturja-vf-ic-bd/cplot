@@ -1,6 +1,4 @@
 # cplot
-## Visualization
-![Result](demo_cplot.png)
 
 ## Input:
 The interface to the user is the `plot_circle` function which takes two mandatory and three optional input.
@@ -11,3 +9,6 @@ The interface to the user is the `plot_circle` function which takes two mandator
   * color_list_edge: It's a list of `C` rings. Each ring is a list of `N` colors for boundary of the boxes.
   * save: saves the plot if `True`
   * fname: filename where the plot is saved.
+
+## Output:
+![Result](demo_cplot.png)
