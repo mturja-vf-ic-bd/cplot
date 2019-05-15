@@ -1,4 +1,4 @@
-# cplot
+# circle plot for brain network visualization
 
 ## Input:
 The interface to the user is the `plot_circle` function which takes two mandatory and three optional input.
