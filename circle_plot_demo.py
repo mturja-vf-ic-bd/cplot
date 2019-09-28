@@ -66,7 +66,7 @@ def plot_ring(color_list_face, color_list_edge, lobes):
 
     return new_patches
 
-def get_lobe_wise_color_ring(n_nodes=148):
+def get_lobe_wise_color_ring(c=1):
     """
     Returns a list of color with different colors for different lobes.
     """
@@ -77,7 +77,10 @@ def get_lobe_wise_color_ring(n_nodes=148):
     for i, lc in enumerate(lobes_count):
         face_color = face_color + [color_list[i]] * lc
 
-    return [face_color], [face_color]
+    rings = []
+    for i in range(c):
+        rings.append(face_color)
+    return rings, rings
 
 
 # Helper function to draw links
@@ -111,8 +114,9 @@ def plot_circle(edges, color_list_face, color_list_edge = None, save=True, fname
         x, y = r * np.cos(theta) + center[0], r * np.sin(theta) + center[1]
         coord.append((x, y))
 
-    edges = get_edges(coord, edges)
-    plot_edges(edges)
+    if edges is not None:
+        edges = get_edges(coord, edges)
+        plot_edges(edges)
     if save:
         fig = plt.gcf()
         fig.tight_layout()
@@ -172,20 +176,21 @@ def sort_matrix(matrix, circular=False):
 
 if __name__ == '__main__':
     # Read adjacency matrix
-    data = read_matrix_from_text_file('demo_network.txt')
-    data = (data + data.T) / 2  # symmetry
-    data /= data.sum()  # whole-brain normalization
-
-    # Sort the matrix lobe-wise so that nodes of the same lobe are adjacent to one another in the matrix
-    data, order = sort_matrix(data)
-
-    # We only choose top 100 edges to display. If we display all the edges it will look cluttered.
-    links = get_top_links(data, count=500, offset=0, weight=True)
+    # data = read_matrix_from_text_file('demo_network.txt')
+    # data = (data + data.T) / 2  # symmetry
+    # data /= data.sum()  # whole-brain normalization
+    #
+    # # Sort the matrix lobe-wise so that nodes of the same lobe are adjacent to one another in the matrix
+    # data, order = sort_matrix(data)
+    #
+    # # We only choose top 100 edges to display. If we display all the edges it will look cluttered.
+    # # links = get_top_links(data, count=500, offset=0, weight=True)
+    # links = []
 
     # Get lobe-wise coloring of the ring. Change this to apply different coloring scheme.
-    face_color, edge_color = get_lobe_wise_color_ring(len(data))
+    face_color, edge_color = get_lobe_wise_color_ring(3)
 
     # Plot and save
     # Input to this function is the face color and the edge color. I used the same
     # color for both.
-    plot_circle(links, face_color, save=True, fname='demo_cplot')
+    plot_circle(None, face_color, save=True, fname='demo_cplot')
