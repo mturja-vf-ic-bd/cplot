@@ -18,6 +18,10 @@ optional arguments:
                         output file for circle plot
  ```                  
 
+```Example: 
+To plot only 3 rings: python3 main.py 3
+3 rings with links: python3 main.py 3 -l -f demo_network.txt
+```
 
 ## Output:
 ![Result](demo_cplot.png)
